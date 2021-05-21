@@ -1,0 +1,67 @@
+@font-face {
+    font-family: "din-2014";
+    src: url("./fonts/DIN2014-ExtraLight.woff") format("woff"),
+    url("./fonts/DIN2014-ExtraLight.ttf") format("truetype");
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "din-2014", helvetica, arial, sans-serif;
+}
+h1 {
+    text-transform: uppercase;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5vh 0 5vh 0;
+}
+body {
+    margin: 0;
+    padding: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family: sans-serif;
+    background: #ffe8e8;
+}
+.slide {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100vw;
+    overflow-x: scroll;
+}
+
+button {
+    width: 80px;
+    height: 40px;
+    border: 1px solid grey;
+    background: transparent;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+button:hover {
+    transform: scale(1.1);
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+    .addList {
+        font-size: 20px;
+        font-weight: bolder;
+        border: 1px solid grey;
+        border-radius: 50px;
+        padding: 20px;
+        cursor: pointer;
+    }
+    .addList:hover {
+        transform: scale(1.1);
+    }
+}
