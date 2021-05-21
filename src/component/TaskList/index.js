@@ -12,20 +12,18 @@ export default function TaskList() {
     getTaskList();
   },[]);
   return (
-    <>
+    <div className="slide">
      {taskLists ? taskLists.map(item=>{
        return(
-        <div key={item.title}>
-            <div className="container">
+        <div  className="container" key={item.title}>
             <h1>{item.title}</h1>
             <List item={item.items}/>
             <div>
                 <button>ADD TASK</button> 
             </div>
-            </div>
         </div>
        )
      }):""} 
-     </>
+     </div>
   );
 }

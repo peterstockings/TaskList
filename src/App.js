@@ -7,9 +7,7 @@ function App() {
     <div className="header">
       <h1>TASK LIST</h1>
     </div>
-    <div className="slide">
-      <TaskList/>
-    </div>
+    <TaskList/>
     <div className="center">
       <div className="addList">
         NEW LIST

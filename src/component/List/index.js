@@ -1,5 +1,5 @@
 import React from 'react';
-import "../TaskList/TaskList.css";
+import "./List.css";
 
 export default function List(props) {
     return (
@@ -8,8 +8,11 @@ export default function List(props) {
             return (
             <div key={item.id} className="task-item" >
                 <div className="task-content">
+                <h4>Name:</h4>
                 <p>{item.name}</p>
-                <p>{item.description}</p> 
+                <h4>Description:</h4> 
+                <p>{item.description}</p>
+                <h4>Date:</h4>
                 <p>{item.deadline}</p>
                 </div>
                 <div className="update">
