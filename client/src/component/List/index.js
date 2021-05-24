@@ -4,9 +4,9 @@ import "./List.css";
 export default function List(props) {
     return (
         <>
-        {props.item.map(item=>{
-            return (
-            <div key={item.id} className="task-item" >
+        {props.item.map((item, index)=>{
+            return (              
+            <div key={index} className="task-item" >
                 <div className="task-content">
                 <h4>Name:</h4>
                 <p>{item.name}</p>

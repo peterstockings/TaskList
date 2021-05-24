@@ -6,7 +6,7 @@ export default function TaskList() {
   const [taskLists, setTaskList] = useState(null);
   useEffect(()=> {
     const getTaskList = async () => {
-      const res = await axios.get("http://localhost:5001");
+      const res = await axios.get("http://localhost:5001/tasks/all");
       setTaskList(res.data);
     }
     getTaskList();
@@ -15,11 +15,12 @@ export default function TaskList() {
     <div className="slide">
      {taskLists ? taskLists.map(item=>{
        return(
-        <div  className="container" key={item.title}>
-            <h1>{item.title}</h1>
-            <List item={item.items}/>
+        <div  className="container" key={item["list"][0]["collection_id"]}>
+            <h1>{item["list"][0]["collection_id"]}</h1>
+            <List item={item["list"]}/>
             <div>
-                <button>ADD TASK</button> 
+                <button>ADD TASK</button>
+                <button>DELETE ALL</button>
             </div>
         </div>
        )
