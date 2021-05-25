@@ -1,7 +1,6 @@
 @font-face {
     font-family: "din-2014";
-    src: url("./fonts/DIN2014-ExtraLight.woff") format("woff"),
-    url("./fonts/DIN2014-ExtraLight.ttf") format("truetype");
+    src: url("./fonts/DIN2014-ExtraLight.woff") format("woff"), url("./fonts/DIN2014-ExtraLight.ttf") format("truetype");
 }
 
 * {
@@ -10,6 +9,7 @@
     padding: 0;
     font-family: "din-2014", helvetica, arial, sans-serif;
 }
+
 h1 {
     text-transform: uppercase;
 }
@@ -24,6 +24,7 @@ h4 {
     justify-content: center;
     padding: 5vh 0 5vh 0;
 }
+
 body {
     margin: 0;
     padding: 0;
@@ -48,13 +49,17 @@ button:hover {
 
 .center {
     display: flex;
-    justify-content: space-between;
-    padding: 20px;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px 0 0 0;
+    button {
+        border-radius: 10px;
+    }
     .addList {
         font-size: 15px;
         font-weight: bolder;
         border: 1px solid grey;
-        border-radius: 50px;
+        border-radius: 10px;
         padding: 10px;
         cursor: pointer;
     }
