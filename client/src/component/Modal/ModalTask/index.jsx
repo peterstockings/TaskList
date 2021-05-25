@@ -14,7 +14,7 @@ const customStyles = {
 };
 
 export default function ModalTask(props) {
-  const [modalIsOpen, setIsOpen] = React.useState(props.task_open);
+  const [modalIsOpen, setIsOpen] = useState(props.task_open);
   const onSubmit = (e) => {
     e.preventDefault();
     axios.post("http://localhost:5001/tasks/add", {

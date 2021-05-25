@@ -1,7 +1,13 @@
 .slider {
     overflow: scroll;
-    width: 100vw;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-flow: row nowrap;
+}
+
+.slider::before,
+.slider::after {
+    content: "";
+    /* Insert pseudo-element */
+    margin: auto;
+    /* Make it push flex items to the center */
 }

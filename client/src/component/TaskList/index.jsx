@@ -15,7 +15,7 @@ export default function TaskList() {
     getTaskList();
   }, []);
   return (
-    <div className="slider">
+    <div className="wide slider">
       {taskLists
         ? taskLists.map((item) => {
             return (
