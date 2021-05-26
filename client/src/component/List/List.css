@@ -1,143 +1,137 @@
 .wrapper.td {
-    display: inline-block;
-    overflow: scroll;
-    -webkit-overflow-scrolling: touch;
-    height: 100%;
-    position: relative;
-    color: #fff;
-    background: #fff;
-    border-radius: 20px;
+  display: inline-block;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+  height: 100%;
+  position: relative;
+  color: #fff;
+  background: #fff;
+  border-radius: 20px;
 }
 
 .wrapper {
-    border-radius: 10px;
-    margin: 20px;
-    min-width: 300px;
-    height: 60vh !important;
+  border-radius: 10px;
+  margin: 20px;
+  min-width: 300px;
+  height: 60vh !important;
 }
 
 .wrapper.td .td__header {
-    border-bottom: 1px solid #d0d0e1;
-    padding: 25px 20px;
-    background: #fff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky;
-    border-radius: 10px 10px 0 0;
-    top: 0;
+  border-bottom: 1px solid #d0d0e1;
+  padding: 25px 20px;
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  border-radius: 10px 10px 0 0;
+  top: 0;
 }
 
 .wrapper.td .td__header-title p {
-    font-size: 20px;
-    color: #3498db;
-    font-weight: 600;
+  font-size: 20px;
+  color: #3498db;
+  font-weight: 600;
 }
 
 .wrapper.td .td__header-title p span {
-    display: block;
-    font-weight: 400;
-    font-size: 12px;
-    color: #d0d0e1;
+  display: block;
+  font-weight: 400;
+  font-size: 12px;
+  color: #d0d0e1;
 }
 
 .wrapper.td .td__header-task {
-    color: #ccc;
-    font-size: 12px;
+  color: #ccc;
+  font-size: 12px;
 }
 
 .wrapper.td .td__header-task button {
-    all: unset;
-    width: 40px;
-    height: 40px;
-    border-radius: 50px;
-    background-color: #fb6c6d;
-    position: absolute;
-    right: 10px;
-    top: 50px;
-    cursor: pointer;
-    transition: box-shadow 0.2s ease, font-size 0.3s ease;
+  all: unset;
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+  background-color: #fb6c6d;
+  position: absolute;
+  right: 10px;
+  top: 50px;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, font-size 0.3s ease;
 }
 
 .wrapper.td .td__header-task button::after {
-    content: "+";
-    left: 50%;
-    top: 55%;
-    font-size: 30px;
-    position: absolute;
-    transform: translate(-50%, -50%);
-    color: #fff;
+  content: "+";
+  left: 50%;
+  top: 55%;
+  font-size: 30px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  color: #fff;
 }
 
 .wrapper.td .td__header-task button:hover {
-    box-shadow: 0px 0px 7px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 7px 8px rgba(0, 0, 0, 0.1);
 }
 
 .wrapper.td .td__header-task button:hover::after {
-    font-size: 26px;
+  font-size: 26px;
 }
 
 .td__main {
-    background: #fff;
+  background: #fff;
 }
 
 .wrapper.td .td__main ul {
-    list-style: none;
+  list-style: none;
 }
 
 .wrapper.td .td__main ul li:last-child {
-    border-left: 3px solid #3498db;
+  border-left: 3px solid #3498db;
 }
 
 .wrapper.td .td__main ul li:nth-of-type(4) {
-    border-left: 3px solid #fb6c6d;
+  border-left: 3px solid #fb6c6d;
 }
 
 .wrapper.td .td__main ul li {
-    border-bottom: 1px solid #efefef;
-    padding: 20px;
+  border-bottom: 1px solid #efefef;
+  padding: 20px;
 }
 
 .wrapper.td .td__main ul li label {
-    color: #8787a0;
-    cursor: pointer;
+  color: #8787a0;
+  cursor: pointer;
 }
 
 .wrapper.td .td__main ul li label input[type="checkbox"] {
-    display: none;
+  display: none;
 }
 
 .wrapper.td .td__main ul li label span::before {
-    content: "";
-    width: 8px;
-    height: 11px;
-    display: inline-block;
-    margin-right: 16px;
-    border: 2px solid #d0d0e1;
-    border-radius: 2px;
-    vertical-align: middle;
-    transition: all 0.3s ease;
+  content: "";
+  width: 8px;
+  height: 11px;
+  display: inline-block;
+  margin-right: 16px;
+  border: 2px solid #d0d0e1;
+  border-radius: 2px;
+  vertical-align: middle;
+  transition: all 0.3s ease;
 }
 
-.wrapper.td .td__main ul li label input[type="checkbox"]:checked+span::before {
-    background: #fb6c6d url("http://www.sclance.com/pngs/white-check-mark-png/white_check_mark_png_1506310.png") no-repeat center center;
-    background-size: cover;
-    border-color: #fb6c6d;
-}
-
-.wrapper.td .td__main ul li label input[type="checkbox"]:checked+span {
-    transition: all 0.3s ease;
-    color: #d5d6e1;
-    text-decoration: line-through;
+.wrapper.td .td__main ul li label input[type="checkbox"]:checked + span {
+  transition: all 0.3s ease;
+  color: #d5d6e1;
+  text-decoration: line-through;
 }
 
 .wrapper.td .td__main ul li span.ts {
-    color: #d5d6e1;
-    font-size: 10px;
+  color: #d5d6e1;
+  font-size: 10px;
 }
 
 .subheader {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }

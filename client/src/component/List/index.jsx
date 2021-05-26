@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
 import "./List.css";
-import ModalUpdate from "../Modal/ModalUpdateTask";
+import ModalUpdateTask from "../Modal/ModalUpdateTask";
 import { rootContext } from "../../App";
 
 export default function List(props) {
+  const task = useContext(rootContext);
   const deleteTask = (num) => {
     axios.delete("http://localhost:5001/tasks/" + num);
     window.location.reload();
@@ -18,14 +19,16 @@ export default function List(props) {
       completed: !item.completed,
     });
   };
+  const update = (num) => {
+    task["toggleId"](num);
+    task["toggleUpdate"]();
+  };
 
-  const task = useContext(rootContext);
   return (
     <>
       {props.item.map((item, index) => {
         return (
           <div className="td__main" key={index}>
-            <ModalUpdate id={item.id} />
             <ul className="td__main-notes">
               <li>
                 <div className="subheader">
@@ -41,7 +44,7 @@ export default function List(props) {
                 </div>
                 <p style={{ color: "grey" }}>{item.description}</p>
                 <div className="center">
-                  <button onClick={() => task["toggleUpdate"]()}>UPDATE</button>
+                  <button onClick={() => update(item.id)}>UPDATE</button>
                   <button onClick={() => deleteTask(item.id)}>DELETE</button>
                 </div>
               </li>

@@ -2,12 +2,10 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import "./TaskList.css";
 import List from "../List";
-import ModalTask from "../Modal/ModalTask";
 import { rootContext } from "../../App";
 
 export default function TaskList() {
   const [taskLists, setTaskList] = useState(null);
-  const [collectionId, setCollectionId] = useState(0);
   const task = useContext(rootContext);
   useEffect(() => {
     const getTaskList = async () => {
@@ -17,12 +15,11 @@ export default function TaskList() {
     getTaskList();
   }, []);
   function addTask(num) {
-    setCollectionId(num);
+    task["toggleId"](num);
     task["toggleTask"]();
   }
   return (
     <div className="wide slider">
-      <ModalTask collection_id={collectionId} task_open={task["taskOpen"]} />
       {taskLists
         ? taskLists.map((item) => {
             return (
