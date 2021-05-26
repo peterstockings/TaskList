@@ -9,7 +9,7 @@ export default function TaskList() {
   const task = useContext(rootContext);
   useEffect(() => {
     const getTaskList = async () => {
-      const res = await axios.get("http://localhost:5001/tasks/all");
+      const res = await axios.get(`http://localhost:5001/tasks/all`);
       setTaskList(res.data);
     };
     getTaskList();

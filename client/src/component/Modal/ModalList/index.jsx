@@ -19,7 +19,7 @@ export default function ModalList() {
   const isOpen = useContext(rootContext);
   const onSubmit = (e) => {
     e.preventDefault();
-    axios.post("http://localhost:5001/tasks/add", {
+    axios.post(`http://localhost:5001/tasks/add`, {
       collection_id: document.getElementById("name").value,
       name: "This is your title",
       description: "This is your description",
@@ -29,7 +29,7 @@ export default function ModalList() {
     window.location.reload();
   };
   const deleteAll = () => {
-    axios.delete("http://localhost:5001/tasks/");
+    axios.delete(`http://localhost:5001/tasks/`);
     window.location.reload();
   };
   return (

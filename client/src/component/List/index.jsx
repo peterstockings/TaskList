@@ -6,11 +6,11 @@ import { rootContext } from "../../App";
 export default function List(props) {
   const task = useContext(rootContext);
   const deleteTask = (num) => {
-    axios.delete("http://localhost:5001/tasks/" + num);
+    axios.delete(`http://localhost:5001/tasks/${num}`);
     window.location.reload();
   };
   const completeTask = (item) => {
-    axios.put("http://localhost:5001/tasks/update/" + item.id, {
+    axios.put(`http://localhost:5001/tasks/update/${item.id}`, {
       collection_id: item.collection_id,
       name: item.name,
       description: item.description,

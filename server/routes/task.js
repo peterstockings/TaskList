@@ -2,7 +2,8 @@ const router = require("express").Router();
 
 let Task = require("../models/task.model");
 
-router.get("/all", (req, res) => {
+router.get("/", (req, res) => {
+  console.log('GET: /');
   Task.aggregate([
     {
       $group: {
@@ -25,22 +26,31 @@ router.get("/all", (req, res) => {
 });
 
 router.route("/:id").get((req, res) => {
+  console.log(`GET /${req.params.id}`)
+
   Task.findById(req.params.id)
     .then((task) => res.json(task))
-    .catch((err) => res.status(400).json("Error: " + err));
+    .catch((err) => {
+      console.log(`Error: ${err.message}`)
+      res.status(400).json({"Error: ": err.message})
+    });
 });
 
 router.route("/:id").delete((req, res) => {
+  console.log(`DELETE /${req.params.id}`)
   Task.findByIdAndDelete(req.params.id)
     .then(() => res.json("Task Deleted."))
-    .catch((err) => res.status(400).json("Error: " + err));
+    .catch((err) => res.status(400).json({"Error: ": err.message}));
 });
 
 router.route("/").delete((req, res) => {
+  console.log(`DELETE /`)
   Task.collection.remove();
 });
 
 router.route("/update/:id").put((req, res) => {
+  console.log(`PUT /update/${req.params.id}`)
+
   Task.findByIdAndUpdate(req.params.id)
     .then((task) => {
       task.collection_id = req.body.collection_id;
@@ -57,6 +67,8 @@ router.route("/update/:id").put((req, res) => {
 });
 
 router.route("/complete/:id").put((req, res) => {
+  console.log(`PUT /complete/${req.params.id}`)
+
   Task.findByIdAndUpdate(req.params.id)
     .then((task) => {
       task.collection_id = req.body.collection_id;
@@ -73,6 +85,8 @@ router.route("/complete/:id").put((req, res) => {
 });
 
 router.route("/add").post((req, res) => {
+  console.log(`POST /add`)
+
   const collection_id = req.body.collection_id;
   const name = req.body.name;
   const description = req.body.description;
