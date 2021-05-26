@@ -7,6 +7,7 @@ import { rootContext } from "../../App";
 
 export default function TaskList() {
   const [taskLists, setTaskList] = useState(null);
+  const [collectionId, setCollectionId] = useState(0);
   const task = useContext(rootContext);
   useEffect(() => {
     const getTaskList = async () => {
@@ -15,8 +16,13 @@ export default function TaskList() {
     };
     getTaskList();
   }, []);
+  function addTask(num) {
+    setCollectionId(num);
+    task["toggleTask"]();
+  }
   return (
     <div className="wide slider">
+      <ModalTask collection_id={collectionId} task_open={task["taskOpen"]} />
       {taskLists
         ? taskLists.map((item) => {
             return (
@@ -24,10 +30,6 @@ export default function TaskList() {
                 className="wrapper td"
                 key={item["list"][0]["collection_id"]}
               >
-                <ModalTask
-                  collection_id={item["list"][0]["collection_id"]}
-                  task_open={task["taskOpen"]}
-                />
                 <div className="td__header">
                   <div className="td__header-title">
                     <p> {item["list"][0]["collection_id"]} </p>
@@ -36,7 +38,7 @@ export default function TaskList() {
                     <p> {item["list"].length} Task</p>
                     <button
                       className="addtodo"
-                      onClick={() => task["toggleTask"]()}
+                      onClick={() => addTask(item["list"][0]["collection_id"])}
                     />
                   </div>
                 </div>
