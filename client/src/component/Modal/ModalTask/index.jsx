@@ -20,7 +20,7 @@ export default function ModalTask(props) {
   const onSubmit = (e) => {
     e.preventDefault();
     axios.post("http://localhost:5001/tasks/add", {
-      collection_id: props.collection_id,
+      collection_id: props.collectionId,
       name: document.getElementById("taskName").value,
       description: document.getElementById("taskDescription").value,
       deadline: Date(document.getElementById("taskDeadline").value),

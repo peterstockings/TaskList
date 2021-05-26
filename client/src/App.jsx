@@ -12,6 +12,7 @@ function App() {
   const [taskOpen, setTaskOpen] = useState(false);
   const [updateOpen, setUpdateOpen] = useState(false);
   const [id, setId] = useState(0);
+  const [collectionId, setCollectionId] = useState(0);
   function toggleList() {
     setListOpen(!listOpen);
   }
@@ -24,6 +25,9 @@ function App() {
   function toggleId(num) {
     setId(num);
   }
+  function toggleCollectionId(num) {
+    setCollectionId(num);
+  }
   return (
     <rootContext.Provider
       value={{
@@ -34,6 +38,7 @@ function App() {
         toggleTask,
         toggleUpdate,
         toggleId,
+        toggleCollectionId,
       }}
     >
       <div className="mainContainer">
@@ -42,8 +47,8 @@ function App() {
         </div>
         <TaskList />
         <ModalList />
-        <ModalTaskList collectionId={id} />
-        <ModalUpdateTask collectionId={id} />
+        <ModalTaskList id={id} collectionId={collectionId} />
+        <ModalUpdateTask id={id} collectionId={collectionId} />
       </div>
     </rootContext.Provider>
   );

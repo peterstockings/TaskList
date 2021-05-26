@@ -1,7 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import axios from "axios";
 import "./List.css";
-import ModalUpdateTask from "../Modal/ModalUpdateTask";
 import { rootContext } from "../../App";
 
 export default function List(props) {
@@ -19,8 +18,9 @@ export default function List(props) {
       completed: !item.completed,
     });
   };
-  const update = (num) => {
+  const update = (num, num2) => {
     task["toggleId"](num);
+    task["toggleCollectionId"](num2);
     task["toggleUpdate"]();
   };
 
@@ -44,7 +44,9 @@ export default function List(props) {
                 </div>
                 <p style={{ color: "grey" }}>{item.description}</p>
                 <div className="center">
-                  <button onClick={() => update(item.id)}>UPDATE</button>
+                  <button onClick={() => update(item.id, item.collection_id)}>
+                    UPDATE
+                  </button>
                   <button onClick={() => deleteTask(item.id)}>DELETE</button>
                 </div>
               </li>

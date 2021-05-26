@@ -119,6 +119,18 @@
   transition: all 0.3s ease;
 }
 
+.wrapper.td
+  .td__main
+  ul
+  li
+  label
+  input[type="checkbox"]:checked
+  + span::before {
+  background: #fb6c6d no-repeat center center;
+  background-size: cover;
+  border-color: #fb6c6d;
+}
+
 .wrapper.td .td__main ul li label input[type="checkbox"]:checked + span {
   transition: all 0.3s ease;
   color: #d5d6e1;

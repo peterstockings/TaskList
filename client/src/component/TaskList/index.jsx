@@ -15,7 +15,7 @@ export default function TaskList() {
     getTaskList();
   }, []);
   function addTask(num) {
-    task["toggleId"](num);
+    task["toggleCollectionId"](num);
     task["toggleTask"]();
   }
   return (
