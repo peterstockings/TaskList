@@ -18,9 +18,12 @@ export default function TaskList() {
   return (
     <div className="wide slider">
       {taskLists
-        ? taskLists.map((item, index) => {
+        ? taskLists.map((item) => {
             return (
-              <div className="wrapper td" key={index}>
+              <div
+                className="wrapper td"
+                key={item["list"][0]["collection_id"]}
+              >
                 <ModalTask
                   collection_id={item["list"][0]["collection_id"]}
                   task_open={task["taskOpen"]}
