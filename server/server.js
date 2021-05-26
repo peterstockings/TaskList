@@ -11,11 +11,19 @@ const app = express();
 app.use(cors());
 app.use(express.json({ extended: false }));
 
+// Add Logging Middleware
+app.use(require('./MiddleWare/LoggingMiddleWare'));
+
+//Set routes
 app.use("/api/tasks", taskRouter);
 
+// 404 route handling
 app.get('*', function(req, res, next) {
   res.status(404).json(`Route not found`)
 });
+
+// Add Error handling Middleware
+app.use(require('./MiddleWare/ErrorHandlingMiddleWare'));
 
 const uri = process.env.ATLAS_URI;
 if(!uri) {
@@ -32,14 +40,13 @@ mongoose.connect(uri, {
 const connection = mongoose.connection;
 
 connection.once("open", () => {
-  console.log("MongoDB database connection established successfully");
+  logger.info("MongoDB database connection established successfully");
 
   const PORT = process.env.PORT || 5001;
-  logger.info(`Attempting to start API on port: ${PORT}`);
   app.listen(PORT, () => {
     logger.info(`API running on port: ${PORT}`);
   });
 });
 
-connection.on('error', e => logger.info('Error: ',e))
+connection.on('error', e => logger.error('Error: ',e))
 

@@ -2,8 +2,7 @@ const router = require("express").Router();
 
 let Task = require("../models/task.model");
 
-router.get("/", (req, res) => {
-  console.log('GET: /');
+router.get("/", (req, res, next) => {
   Task.aggregate([
     {
       $group: {
@@ -22,18 +21,14 @@ router.get("/", (req, res) => {
     },
   ])
     .then((task) => res.json(task))
-    .catch((err) => res.status(400).json("Error: " + err));
+    .catch(next);
 });
 
-router.route("/:id").get((req, res) => {
-  console.log(`GET /${req.params.id}`)
+router.route("/:id").get((req, res, next) => {
 
   Task.findById(req.params.id)
     .then((task) => res.json(task))
-    .catch((err) => {
-      console.log(`Error: ${err.message}`)
-      res.status(400).json({"Error: ": err.message})
-    });
+    .catch(next)
 });
 
 router.route("/:id").delete((req, res) => {

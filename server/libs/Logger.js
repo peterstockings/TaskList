@@ -110,7 +110,7 @@ class Logger {
   }
 }
 
-module.exports = new Logger(process.env.APP_NAME, {
+module.exports = new Logger('TaskList', {
   logLevel: process.env.LOG_LEVEL
 });
 
