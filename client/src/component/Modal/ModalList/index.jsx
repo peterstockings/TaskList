@@ -11,12 +11,14 @@ const customStyles = {
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
+    border: "1px solid grey",
   },
 };
 
 export default function ModalList() {
   const isOpen = useContext(rootContext);
   const onSubmit = (e) => {
+    e.preventDefault();
     axios.post("http://localhost:5001/tasks/add", {
       collection_id: document.getElementById("name").value,
       name: "This is your title",
@@ -35,10 +37,21 @@ export default function ModalList() {
       <Modal
         isOpen={isOpen["listOpen"]}
         style={customStyles}
-        contentLabel="Example Modal"
+        ariaHideApp={false}
       >
-        <button onClick={() => isOpen["toggleList"]()}> close </button>
-        <div> I am a modal </div>
+        <button
+          style={{
+            position: "relative",
+            float: "right",
+            color: "red",
+            fontSize: "24px",
+            border: "none",
+            width: "12px",
+          }}
+          onClick={() => isOpen["toggleList"]()}
+        >
+          x
+        </button>
         <form onSubmit={onSubmit}>
           <label>
             Name:

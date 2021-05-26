@@ -1,69 +1,97 @@
 @font-face {
-    font-family: "din-2014";
-    src: url("./fonts/DIN2014-ExtraLight.woff") format("woff"), url("./fonts/DIN2014-ExtraLight.ttf") format("truetype");
+  font-family: "din-2014";
+  src: url("./fonts/DIN2014-ExtraLight.woff") format("woff"),
+    url("./fonts/DIN2014-ExtraLight.ttf") format("truetype");
 }
 
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: "din-2014", helvetica, arial, sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "din-2014", helvetica, arial, sans-serif;
 }
 
 h1 {
-    text-transform: uppercase;
+  text-transform: uppercase;
 }
 
 h4 {
-    font-weight: bolder;
+  font-weight: bolder;
 }
 
 .header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 5vh 0 5vh 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5vh 0 5vh 0;
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    background-size: cover;
-    background-repeat: no-repeat;
-    font-family: sans-serif;
-    background: #ffe8e8;
+  margin: 0;
+  padding: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  font-family: sans-serif;
+  background: #ffe8e8;
 }
 
 button {
-    width: 80px;
-    height: 40px;
-    border: 1px solid grey;
-    background: transparent;
-    border-radius: 20px;
-    cursor: pointer;
+  width: 80px;
+  height: 40px;
+  border: 1px solid grey;
+  background: transparent;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 button:hover {
-    transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 .center {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px 0 0 0;
+  button {
+    border-radius: 10px;
+  }
+  .addList {
+    font-size: 15px;
+    font-weight: bolder;
+    border: 1px solid grey;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+  }
+  .addList:hover {
+    transform: scale(1.1);
+  }
+}
+
+form {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 280px;
+  height: auto;
+  label {
     display: flex;
-    align-items: center;
-    justify-content: space-around;
-    padding: 10px 0 0 0;
-    button {
-        border-radius: 10px;
-    }
-    .addList {
-        font-size: 15px;
-        font-weight: bolder;
-        border: 1px solid grey;
-        border-radius: 10px;
-        padding: 10px;
-        cursor: pointer;
-    }
-    .addList:hover {
-        transform: scale(1.1);
-    }
+    flex-direction: column;
+    padding-bottom: 10px;
+  }
+  input {
+    border: none;
+    border-bottom: 1px solid grey;
+    background: transparent;
+    height: 24px;
+    margin-bottom: 10px;
+  }
+  input[type="submit"] {
+    background: black;
+    height: 40px;
+    color: white;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
 }

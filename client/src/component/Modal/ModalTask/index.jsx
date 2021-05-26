@@ -11,6 +11,7 @@ const customStyles = {
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
+    border: "1px solid grey",
   },
 };
 
@@ -22,21 +23,33 @@ export default function ModalTask(props) {
       collection_id: props.collection_id,
       name: document.getElementById("taskName").value,
       description: document.getElementById("taskDescription").value,
-      deadline: document.getElementById("taskDeadline").value,
+      deadline: Date(document.getElementById("taskDeadline").value),
     });
     isOpen["toggleTask"]();
     window.location.reload();
   };
 
   return (
-    <div key={isOpen["taskOpen"]}>
+    <div>
       <Modal
         isOpen={isOpen["taskOpen"]}
         style={customStyles}
-        contentLabel="Example Modal"
+        ariaHideApp={false}
       >
-        <button onClick={() => isOpen["toggleTask"]()}> close </button>{" "}
-        <div> I am a modal </div>
+        <button
+          style={{
+            position: "relative",
+            float: "right",
+            color: "red",
+            fontSize: "24px",
+            border: "none",
+            width: "12px",
+          }}
+          onClick={() => isOpen["toggleTask"]()}
+        >
+          x
+        </button>
+
         <form onSubmit={onSubmit}>
           <label>
             Name:
