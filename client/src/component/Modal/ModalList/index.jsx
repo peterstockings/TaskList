@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import Modal from "react-modal";
+import { rootContext } from "../../../App";
 
 const customStyles = {
   content: {
@@ -14,32 +15,30 @@ const customStyles = {
 };
 
 export default function ModalList() {
-  const [modalIsOpen, setIsOpen] = useState(false);
+  const isOpen = useContext(rootContext);
   const onSubmit = (e) => {
-    e.preventDefault();
     axios.post("http://localhost:5001/tasks/add", {
       collection_id: document.getElementById("name").value,
       name: "This is your title",
       description: "This is your description",
       deadline: "2020-12-31",
     });
-    setIsOpen(false);
+    isOpen["toggleList"]();
+    window.location.reload();
   };
   const deleteAll = () => {
     axios.delete("http://localhost:5001/tasks/");
+    window.location.reload();
   };
-
-  function closeModal() {
-    setIsOpen(false);
-  }
   return (
     <>
       <Modal
-        isOpen={modalIsOpen}
+        isOpen={isOpen["listOpen"]}
         style={customStyles}
         contentLabel="Example Modal"
       >
-        <button onClick={closeModal}> close </button> <div> I am a modal </div>{" "}
+        <button onClick={() => isOpen["toggleList"]()}> close </button>
+        <div> I am a modal </div>
         <form onSubmit={onSubmit}>
           <label>
             Name:
@@ -49,7 +48,7 @@ export default function ModalList() {
         </form>
       </Modal>
       <div className="center">
-        <div className="addList" onClick={() => setIsOpen(!modalIsOpen)}>
+        <div className="addList" onClick={() => isOpen["toggleList"]()}>
           NEW LIST
         </div>
         <div className="addList" onClick={() => deleteAll()}>

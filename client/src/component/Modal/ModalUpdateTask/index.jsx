@@ -14,29 +14,29 @@ const customStyles = {
   },
 };
 
-export default function ModalTask(props) {
+export default function ModalUpdateTask(props) {
   const isOpen = useContext(rootContext);
   const onSubmit = (e) => {
     e.preventDefault();
-    axios.post("http://localhost:5001/tasks/add", {
+    axios.put("http://localhost:5001/tasks/update" + props.id, {
       collection_id: props.collection_id,
       name: document.getElementById("taskName").value,
       description: document.getElementById("taskDescription").value,
       deadline: document.getElementById("taskDeadline").value,
     });
-    isOpen["toggleTask"]();
+    isOpen["toggleUpdate"]();
     window.location.reload();
   };
 
   return (
-    <div key={isOpen["taskOpen"]}>
+    <div key={isOpen["updateOpen"]}>
       <Modal
-        isOpen={isOpen["taskOpen"]}
+        isOpen={isOpen["updateOpen"]}
         style={customStyles}
         contentLabel="Example Modal"
       >
-        <button onClick={() => isOpen["toggleTask"]()}> close </button>{" "}
-        <div> I am a modal </div>
+        <button onClick={() => isOpen["toggleUpdate"]()}> close </button>{" "}
+        <div> Update Modal </div>
         <form onSubmit={onSubmit}>
           <label>
             Name:

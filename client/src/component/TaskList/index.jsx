@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import "./TaskList.css";
 import List from "../List";
 import ModalTask from "../Modal/ModalTask";
+import { rootContext } from "../../App";
 
 export default function TaskList() {
   const [taskLists, setTaskList] = useState(null);
-  const [open, setOpen] = useState(false);
+  const task = useContext(rootContext);
   useEffect(() => {
     const getTaskList = async () => {
       const res = await axios.get("http://localhost:5001/tasks/all");
@@ -17,15 +18,12 @@ export default function TaskList() {
   return (
     <div className="wide slider">
       {taskLists
-        ? taskLists.map((item) => {
+        ? taskLists.map((item, index) => {
             return (
-              <div
-                className="wrapper td"
-                key={item["list"][0]["collection_id"]}
-              >
+              <div className="wrapper td" key={index}>
                 <ModalTask
                   collection_id={item["list"][0]["collection_id"]}
-                  task_open={open}
+                  task_open={task["taskOpen"]}
                 />
                 <div className="td__header">
                   <div className="td__header-title">
@@ -35,7 +33,7 @@ export default function TaskList() {
                     <p> {item["list"].length} Task</p>
                     <button
                       className="addtodo"
-                      onClick={() => setOpen(!open)}
+                      onClick={() => task["toggleTask"]()}
                     />
                   </div>
                 </div>
