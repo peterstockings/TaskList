@@ -2,48 +2,35 @@ const router = require("express").Router();
 
 let Task = require("../models/task.model");
 
+// Get all tasks
 router.get("/", (req, res, next) => {
-  Task.aggregate([
-    {
-      $group: {
-        _id: "$collection_id",
-        list: {
-          $push: {
-            id: "$_id",
-            collection_id: "$collection_id",
-            name: "$name",
-            description: "$description",
-            deadline: "$deadline",
-            completed: "$completed",
-          },
-        },
-      },
-    },
-  ])
-    .then((task) => res.json(task))
-    .catch(next);
+  Task.find()
+  .then(tasks => res.json(tasks))
+  .catch(next)
 });
 
+// Get task by id
 router.route("/:id").get((req, res, next) => {
-
   Task.findById(req.params.id)
     .then((task) => res.json(task))
     .catch(next)
 });
 
-router.route("/:id").delete((req, res) => {
-  console.log(`DELETE /${req.params.id}`)
+// Delete all tasks
+router.route("/").delete((req, res, next) => {
+  Task.deleteMany({})
+    .then(() => res.json({message: 'Successfully deleted all tasks'}))
+    .catch(next)
+});
+
+//Delete task by id
+router.route("/:id").delete((req, res, next) => {
   Task.findByIdAndDelete(req.params.id)
-    .then(() => res.json("Task Deleted."))
-    .catch((err) => res.status(400).json({"Error: ": err.message}));
+    .then((deletedTask) => res.json(deletedTask))
+    .catch(next);
 });
 
-router.route("/").delete((req, res) => {
-  console.log(`DELETE /`)
-  Task.collection.remove();
-});
-
-router.route("/update/:id").put((req, res) => {
+router.route("/update/:id").put((req, res, next) => {
   console.log(`PUT /update/${req.params.id}`)
 
   Task.findByIdAndUpdate(req.params.id)
@@ -56,9 +43,9 @@ router.route("/update/:id").put((req, res) => {
       task
         .save()
         .then(() => res.json("Task updated!"))
-        .catch((err) => res.status(400).json("Error: " + err));
+        .catch(next);
     })
-    .catch((err) => res.status(400).json("Error: " + err));
+    .catch(next);
 });
 
 router.route("/complete/:id").put((req, res) => {
@@ -79,9 +66,7 @@ router.route("/complete/:id").put((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-router.route("/add").post((req, res) => {
-  console.log(`POST /add`)
-
+router.route("/").post((req, res) => {
   const collection_id = req.body.collection_id;
   const name = req.body.name;
   const description = req.body.description;

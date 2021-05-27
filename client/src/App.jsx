@@ -1,56 +1,37 @@
 import "./App.scss";
-import TaskList from "./component/TaskList";
-import ModalList from "./component/Modal/ModalList";
-import ModalTaskList from "./component/Modal/ModalTask";
-import ModalUpdateTask from "./component/Modal/ModalUpdateTask";
-import React, { useState, createContext } from "react";
-
-export const rootContext = createContext();
+import React, { useState, useEffect } from "react";
+import socketIOClient from "socket.io-client";
+import {API_URL} from './constants/API.constants'
+import Card from "./components/card/Card";
 
 function App() {
-  const [listOpen, setListOpen] = useState(false);
-  const [taskOpen, setTaskOpen] = useState(false);
-  const [updateOpen, setUpdateOpen] = useState(false);
-  const [id, setId] = useState(0);
-  const [collectionId, setCollectionId] = useState(0);
-  function toggleList() {
-    setListOpen(!listOpen);
-  }
-  function toggleTask() {
-    setTaskOpen(!taskOpen);
-  }
-  function toggleUpdate() {
-    setUpdateOpen(!updateOpen);
-  }
-  function toggleId(num) {
-    setId(num);
-  }
-  function toggleCollectionId(num) {
-    setCollectionId(num);
-  }
+  const [taskLists, setTaskList] = useState([]);
+
+  useEffect(() => {
+
+    fetch(`${API_URL}/api/tasks`)
+      .then(res => res.json())
+      .then(tasks => {
+        //console.log('Fetched: ', tasks)
+        setTaskList(tasks);
+      })
+      .catch(err => console.log('Error: ',err))
+      //.finally(() => console.log('request complete'))
+
+      const socket = socketIOClient(`${API_URL}`);
+      socket.on("tasks", tasks => {
+        setTaskList(tasks)
+        //console.log(tasks);
+      });
+
+  }, []);
+
   return (
-    <rootContext.Provider
-      value={{
-        listOpen,
-        taskOpen,
-        updateOpen,
-        toggleList,
-        toggleTask,
-        toggleUpdate,
-        toggleId,
-        toggleCollectionId,
-      }}
-    >
-      <div className="mainContainer">
-        <div className="header">
-          <h1> TASK LIST </h1>
-        </div>
-        <TaskList />
-        <ModalList />
-        <ModalTaskList id={id} collectionId={collectionId} />
-        <ModalUpdateTask id={id} collectionId={collectionId} />
-      </div>
-    </rootContext.Provider>
+    <main className="grid">
+      {taskLists.length > 0
+        ? taskLists.map((task) => <Card key={task._id} task={task}/>)
+        : ""}
+    </main>
   );
 }
 

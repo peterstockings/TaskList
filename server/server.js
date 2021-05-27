@@ -3,10 +3,21 @@ const cors = require("cors");
 const logger = require('./libs/Logger');
 const mongoose = require("mongoose");
 const taskRouter = require("./routes/task");
+const http = require('http');
+const { Server } = require("socket.io");
+let Task = require("./models/task.model");
 
 require("dotenv").config();
 
+// Start API and socket.io server
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"]
+  }
+});
 
 app.use(cors());
 app.use(express.json({ extended: false }));
@@ -19,7 +30,10 @@ app.use("/api/tasks", taskRouter);
 
 // 404 route handling
 app.get('*', function(req, res, next) {
-  res.status(404).json(`Route not found`)
+  let url = req.url;
+  if (!url.includes('/socket.io')){
+    res.status(404).json(`Route not found`)
+  }
 });
 
 // Add Error handling Middleware
@@ -42,8 +56,29 @@ const connection = mongoose.connection;
 connection.once("open", () => {
   logger.info("MongoDB database connection established successfully");
 
+  Task.watch().on('change',(change)=>{
+    logger.info('Change detected: ', change.fullDocument)
+
+    Task.find()
+      .then(tasks => {
+        io.emit('tasks', tasks)
+      })
+      .catch(err => logger.error('Fetch all tasks error', err))
+    
+    //io.emit('tasks',change.fullDocument)
+  })
+
+  io.on('connection', (socket) => {
+    logger.info("User connected");
+
+    socket.on('disconnect', () => {
+      logger.info("User disconnected");
+    });
+
+  });
+
   const PORT = process.env.PORT || 5001;
-  app.listen(PORT, () => {
+  server.listen(PORT, () => {
     logger.info(`API running on port: ${PORT}`);
   });
 });
