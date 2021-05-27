@@ -2,18 +2,13 @@ import React from "react";
 import 'bulma/css/bulma.min.css';
 import {Card, Media, Heading, Content} from 'react-bulma-components'
 import "./TaskCard.scss";
-import {API_URL, COMPLETE_TASK, OPEN_TASK} from '../../constants/API.constants'
+import API from '../../services/API.service'
 
 export default function TaskCard(props) {
 
   const {_id, name, description, completed, deadline} = props.task
 
-  const toggleCompleteHandler = () => {
-    let endpoint = completed ? `${OPEN_TASK}${_id}` : `${COMPLETE_TASK}${_id}`
-
-    fetch(endpoint, {method: 'PUT'})
-      .catch(err => console.log('Error: ',err))
-  }
+  const toggleCompleteHandler = () => API.toggle(_id, completed).catch(err => console.log('Error: ',err))
 
   return (
     <Card className="card">
