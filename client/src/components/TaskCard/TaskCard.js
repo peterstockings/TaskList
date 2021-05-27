@@ -9,25 +9,10 @@ export default function TaskCard(props) {
   const {_id, name, description, completed, deadline} = props.task
 
   const toggleCompleteHandler = () => {
-    console.log(props.task)
-    if(completed) {
-      fetch(`${OPEN_TASK}${_id}`, {method: 'PUT'})
-      .then(res => res.json())
-      .then(task => {
-        console.log('toggled: ', task)
-      })
+    let endpoint = completed ? `${OPEN_TASK}${_id}` : `${COMPLETE_TASK}${_id}`
+
+    fetch(endpoint, {method: 'PUT'})
       .catch(err => console.log('Error: ',err))
-      //.finally(() => console.log('request complete'))
-    }
-    else {
-      fetch(`${COMPLETE_TASK}${_id}`, {method: 'PUT'})
-      .then(res => res.json())
-      .then(task => {
-        console.log('toggled: ', task)
-      })
-      .catch(err => console.log('Error: ',err))
-      //.finally(() => console.log('request complete'))
-    }
   }
 
   return (
@@ -35,9 +20,9 @@ export default function TaskCard(props) {
       <Card.Content>
         <Media>
           <Media.Item>
-            <Heading size={4}>
+            <Heading size={4} onClick={toggleCompleteHandler}>
               <>
-                <input type="checkbox" id={_id} name="completed" checked={completed} onClick={toggleCompleteHandler} readOnly/>
+                <input type="checkbox" id={_id} name="completed" checked={completed} readOnly/>
                 <label htmlFor="completed" data-content={name}>{name}</label>
               </>
             </Heading>
