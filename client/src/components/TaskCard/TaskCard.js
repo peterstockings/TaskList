@@ -1,6 +1,6 @@
 import React from "react";
 import 'bulma/css/bulma.min.css';
-import {Card, Media, Heading, Content} from 'react-bulma-components'
+import {Card, Media, Heading, Content, Button} from 'react-bulma-components'
 import "./TaskCard.scss";
 import API from '../../services/API.service'
 
@@ -9,6 +9,8 @@ export default function TaskCard(props) {
   const {_id, name, description, completed, deadline} = props.task
 
   const toggleCompleteHandler = () => API.toggle(_id, completed).catch(err => console.log('Error: ',err))
+
+  const deleteTaskHandler = () => API.delete(_id).catch(err => console.log('Error: ',err))
 
   return (
     <Card className="card">
@@ -19,6 +21,7 @@ export default function TaskCard(props) {
               <>
                 <input type="checkbox" id={_id} name="completed" checked={completed} readOnly/>
                 <label htmlFor="completed" data-content={name}>{name}</label>
+                <Button remove className="delete-btn" onClick={deleteTaskHandler}/>
               </>
             </Heading>
             <Heading subtitle size={6}>
