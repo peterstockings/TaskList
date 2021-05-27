@@ -48,22 +48,18 @@ router.route("/update/:id").put((req, res, next) => {
     .catch(next);
 });
 
-router.route("/complete/:id").put((req, res) => {
-  console.log(`PUT /complete/${req.params.id}`)
+router.route("/complete/:id").put((req, res, next) => {
 
-  Task.findByIdAndUpdate(req.params.id)
-    .then((task) => {
-      task.collection_id = req.body.collection_id;
-      task.name = req.body.name;
-      task.description = req.body.description;
-      task.completed = true;
-      task.deadline = Date.parse(req.body.deadline);
-      task
-        .save()
-        .then(() => res.json("Task Completed!"))
-        .catch((err) => res.status(400).json("Error: " + err));
-    })
-    .catch((err) => res.status(400).json("Error: " + err));
+  Task.findByIdAndUpdate({_id: req.params.id}, {completed: true})
+    .then((task) => res.json(task))
+    .catch(next)
+});
+
+router.route("/open/:id").put((req, res, next) => {
+
+  Task.findByIdAndUpdate({_id: req.params.id}, {completed: false})
+    .then((task) => res.json(task))
+    .catch(next)
 });
 
 router.route("/").post((req, res) => {

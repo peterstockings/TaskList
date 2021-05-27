@@ -2,7 +2,7 @@ import "./App.scss";
 import React, { useState, useEffect } from "react";
 import socketIOClient from "socket.io-client";
 import {API_URL} from './constants/API.constants'
-import Card from "./components/card/Card";
+import TaskCard from "./components/TaskCard/TaskCard";
 
 function App() {
   const [taskLists, setTaskList] = useState([]);
@@ -29,7 +29,7 @@ function App() {
   return (
     <main className="grid">
       {taskLists.length > 0
-        ? taskLists.map((task) => <Card key={task._id} task={task}/>)
+        ? taskLists.map((task) => <TaskCard key={task._id} task={task}/>)
         : ""}
     </main>
   );
