@@ -6,6 +6,7 @@ const taskRouter = require("./routes/task");
 const http = require('http');
 const { Server } = require("socket.io");
 let Task = require("./models/task.model");
+const GroupTasksBy = require("./common/GroupTasks");
 
 require("dotenv").config();
 
@@ -62,7 +63,7 @@ connection.once("open", () => {
 
     Task.find()
       .then(tasks => {
-        io.emit('tasks', tasks)
+        io.emit('tasks', GroupTasksBy(tasks, 'collection_id'))
       })
       .catch(err => logger.error('Fetch all tasks error', err))
     

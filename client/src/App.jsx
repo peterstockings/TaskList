@@ -24,11 +24,17 @@ function App() {
   }, []);
 
   return (
-    <main className="grid">
-      {taskLists.length > 0
-        ? taskLists.map((task) => <TaskCard key={task._id} task={task}/>)
-        : ""}
-    </main>
+    <main>
+      {taskLists.map(groupOfTasks => (
+        <div className="group-card">
+          <h1 className="title is-2 pad-title">{groupOfTasks.collection_id}</h1>
+          <div className="grid">
+            {groupOfTasks.tasks.map((task) => <TaskCard key={task._id} task={task}/>)}
+          </div>
+          </div>
+      ))}
+      
+    </main>    
   );
 }
 

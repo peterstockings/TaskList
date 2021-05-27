@@ -1,12 +1,16 @@
 const router = require("express").Router();
-
+let GroupTasksBy = require("../common/GroupTasks");
 let Task = require("../models/task.model");
 
 // Get all tasks
 router.get("/", (req, res, next) => {
 
   Task.find()
-    .then(tasks => res.json(tasks))
+    .then(tasks => {
+      console.log(tasks)
+      console.log(GroupTasksBy(tasks, 'collection_id'))
+      res.json(GroupTasksBy(tasks, 'collection_id'))
+    })
     .catch(next)
 });
 
